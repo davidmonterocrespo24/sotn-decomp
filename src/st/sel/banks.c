@@ -8,7 +8,7 @@ extern s16* D_8018EFB4[];
 extern s16* D_8018DC30[];
 extern s16* D_8018E3B4[];
 
-s16** g_SpriteBanks[] = {
+const s16** g_SpriteBanks[] = {
     NULL, D_8018DBD4, D_8018EFB4, D_8018DC30, D_8018E3B4, NULL, NULL, NULL,
     NULL, NULL,       NULL,       NULL,       NULL,       NULL, NULL, NULL,
     NULL, NULL,       NULL,       NULL,       NULL,       NULL, NULL, NULL,
@@ -28,7 +28,7 @@ extern u16 D_801807C4[0x10];
 extern u16 D_801807E4[0x10];
 extern u16 D_80180804[0x10];
 
-static u16 D_801805FC[] = {
+static const u16 D_801805FC[] = {
 #include "gen/D_801805FC.h"
 };
 

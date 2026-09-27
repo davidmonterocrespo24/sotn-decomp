@@ -27,7 +27,7 @@ SimFile D_800A024C[] = {
 };
 
 // need a place for the data loaded to hardcoded offset
-u8 D_80280000[110000] = {0};
+SOTN_XRAM u8 D_80280000[110000];
 
 SimFile D_800A036C[] = {
     {

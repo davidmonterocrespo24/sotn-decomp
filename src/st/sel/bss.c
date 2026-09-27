@@ -40,16 +40,16 @@ u32 D_801BC3EC;
 #ifndef HARD_LINK
 MemcardInfo g_MemcardInfo[2];
 #endif
-SaveSummary g_SaveSummary[PORT_COUNT];
+SOTN_XRAM SaveSummary g_SaveSummary[PORT_COUNT];
 u32 D_801BD030;
 u32 g_StreamEndFrame;
 u32 g_StreamIsRGB24;
 u32 D_801BD03C;
 u32 D_801BD040;
 s32 g_StreamRewindSwitch[1];
-u8 g_StreamImageBuffer[0x14000];
+SOTN_XRAM u8 g_StreamImageBuffer[0x14000];
 static s32 D_801D1048;
-s32 D_801D104C[0x1680];
+SOTN_XRAM s32 D_801D104C[0x1680];
 StreamEnv g_StreamEnv;
 u32 D_801D6B00;
 u32 D_801D6B04;

@@ -152,8 +152,21 @@ void func_801093C4(void) {
     Primitive* prim;
     s32 i;
 
+    // The walk rides the afterimage entity's prim chain to reach the two
+    // trailing env prims. If that chain is not built yet (direct-boot init
+    // order) the walk leaves the pool and SetDrawEnv stomps wild memory
+    // (found on the ESP32 port; latent upstream).
+    if (g_Entities[E_AFTERIMAGE_1].primIndex <= 0) {
+        return;
+    }
     prim = &g_PrimBuf[g_Entities[E_AFTERIMAGE_1].primIndex];
     for (i = 0; i < MaxAfterImages; i++) {
+        // a foreign/stale chain can hold non-NULL links that leave the
+        // pool entirely - range-check every hop
+        if (prim->next < &g_PrimBuf[0] ||
+            prim->next >= &g_PrimBuf[MAX_PRIM_COUNT]) {
+            return;
+        }
         prim = prim->next;
     }
     switch (g_Player.unk6A) {

@@ -2405,7 +2405,7 @@ void EntityPlayerBlinkWhite(Entity* self) {
 #endif
                     sp72 = *sp5c++;
                     sp72 &= 0x7FFF;
-                    sp58 = (*g_PlOvlAluBatSpritesheet)[sp72];
+                    sp58 = PlOvlAluBatSprite(sp72);
 #ifdef VERSION_PSP
                 } else {
                     sp58 = 0;
@@ -2457,7 +2457,7 @@ void EntityPlayerBlinkWhite(Entity* self) {
             sp58 = ((u8**)SPRITESHEET_PTR)[sp72];
         }
         if (PLAYER.animSet == 0xD) {
-            sp58 = (*g_PlOvlAluBatSpritesheet)[sp72];
+            sp58 = PlOvlAluBatSprite(sp72);
         }
     }
 #ifdef VERSION_PSP

@@ -51,6 +51,6 @@ u8* D_800C52F8[] = {
     D_800C5004, D_800C5088, D_800C510C, D_800C5190, D_800C5214,
 };
 
-u8 g_GfxEquipIcon[] = {
+const u8 g_GfxEquipIcon[] = {
 #include "gen/g_GfxEquipIcon.h"
 };

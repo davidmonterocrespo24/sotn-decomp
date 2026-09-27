@@ -16,9 +16,9 @@ s32 g_LoadFile;
 s32 D_8006BB00;
 u32 g_CdStep;
 GameState g_GameState;
-Entity g_Entities[TOTAL_ENTITY_COUNT];
+SOTN_XRAM Entity g_Entities[TOTAL_ENTITY_COUNT];
 unkGraphicsStruct g_unkGraphicsStruct;
-Primitive g_PrimBuf[MAX_PRIM_COUNT];
+SOTN_XRAM Primitive g_PrimBuf[MAX_PRIM_COUNT];
 FgLayer D_8003C708;
 s16 D_8003C710;
 s16 D_8003C712;
@@ -34,7 +34,7 @@ s32 g_PlayerX;
 s32 g_PlayerY;
 PlayerState g_Player;
 u32 g_GameTimer;
-GpuBuffer g_GpuBuffers[2];
+SOTN_XRAM GpuBuffer g_GpuBuffers[2];
 s16 g_GpuBuffers_1_buf_draw_clip_y; // member of D_800542FC, TODO
                                     // overlap, hard to remove
 GpuBuffer* g_CurrentBuffer;
@@ -59,13 +59,13 @@ s32 stopMusicFlag;
 s32 D_8006C3AC;
 s32 D_800978C4;
 u32 D_80097C98;
-u16 g_Clut[3][0x1000];
+SOTN_XRAM u16 g_Clut[3][0x1000];
 Point32 D_8006C384;
 MenuNavigation g_MenuNavigation;
 GameSettings g_Settings;
 Point32 D_8006C38C;
 s32 g_CurrentStream;
-u16 g_ClutIds[0x400];
+SOTN_XRAM u16 g_ClutIds[0x400];
 s32 D_8003C738;
 u8 g_CastleFlags[0x300];
 s32 D_8006C374;
@@ -91,17 +91,17 @@ u32 g_RoomCount;
 s32 g_EquippedWeaponIds[2] = {0};
 Tilemap g_Tilemap;
 BgLayer g_BgLayers[MAX_BG_LAYER_COUNT];
-u8 g_CastleMap[0x800];
+SOTN_XRAM u8 g_CastleMap[0x800];
 s32 D_8003C0EC[4] = {0};
 Unkstruct_8006C3C4 D_8006C3C4[32] = {0};
 GfxLoad g_GfxLoad[0x10] = {0};
 PlayerDraw g_PlayerDraw[0x10];
 DR_ENV D_800974AC[16];
 u32 D_8003C744 = 0;
-u8 D_psp_08C6BC40[0x4000];
-u8 D_psp_08C6FC40[0x4000];
-u8 D_psp_08D2DC40[0x4000];
-u8 D_psp_08D97C40[0x4000];
+SOTN_XRAM u8 D_psp_08C6BC40[0x4000];
+SOTN_XRAM u8 D_psp_08C6FC40[0x4000];
+SOTN_XRAM u8 D_psp_08D2DC40[0x4000];
+SOTN_XRAM u8 D_psp_08D97C40[0x4000];
 
 // dra.h
 s16 D_800AC958[] = {
@@ -114,20 +114,20 @@ s16 D_800AC958[] = {
 // other stubs
 s32 D_800974A4;
 s32 g_DebugPlayer;
-u8 D_8013B6A0[269488] = {0}; // VB file
-u8 D_8017D350[57744] = {0};  // VB file
-u8 D_8018B4E0[108048] = {0}; // VB file
-u8 D_801A9C80[64496] = {0};  // VB file
+SOTN_XRAM u8 D_8013B6A0[269488]; // VB file
+SOTN_XRAM u8 D_8017D350[57744];  // VB file
+SOTN_XRAM u8 D_8018B4E0[108048]; // VB file
+SOTN_XRAM u8 D_801A9C80[64496];  // VB file
 u8 aPqes[] = {0};            // SEQ file
 u8 aPqes_0[] = {0};          // SEQ file
 u8 aPqes_1[] = {0};          // SEQ file
 s32 D_800987B4;
-u16 g_PalEquipIcon[320 * 16];
+SOTN_XRAM u16 g_PalEquipIcon[320 * 16];
 u16 D_8006ED0C[0x10] = {0};
 u16 D_8006ED2C[0x10] = {0};
 u16 D_8006ED4C[0x10] = {0};
 
-u8 g_Pix[4][128 * 128 / 2];
+SOTN_XRAM u8 g_Pix[4][128 * 128 / 2];
 ImgSrc g_imgUnk8013C200_impl = {
     0,
     0,
@@ -136,7 +136,6 @@ ImgSrc g_imgUnk8013C200_impl = {
 ImgSrc* g_imgUnk8013C200 = &g_imgUnk8013C200_impl;
 ImgSrc* g_imgUnk8013C270 = &g_imgUnk8013C200_impl;
 PlayerOvl g_PlOvl = {0};
-u8** g_PlOvlAluBatSpritesheet[1] = {0};
 
 void func_801073C0(void) { NOT_IMPLEMENTED; }
 

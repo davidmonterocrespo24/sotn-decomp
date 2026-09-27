@@ -55,6 +55,14 @@ s32 func_800EA5E4(u32 arg0) {
     if (clut[0] == -1) {
         return 1;
     }
+    // Stage cluts[] tables carry no length; an out-of-range id (e.g. the
+    // tilesetId-derived 0xC0xx path with an incomplete generated table)
+    // reads past the table into adjacent data and registers garbage as a
+    // palette animation, which then writes far outside g_Clut every frame.
+    // Reject any blob whose CLUT range cannot be a real palette op.
+    if ((u32)clut[1] + (u32)clut[2] > LEN(g_Clut) * LEN(g_Clut[0])) {
+        return 1;
+    }
 
     for (i = 0, ptr = D_8006C3C4; i < LEN(D_8006C3C4); i++, ptr++) {
         if (!ptr->unk8) {

@@ -20,9 +20,9 @@ u16 D_800A3834[] = {0x8433, 0x843A, 0x0000, 0x0000, 0x0000,
 
 u_long* D_800A3848[] = {GFX_TERMINATE()};
 
-extern u8 text_item_up[];
-extern u8 load_room_obj[];
-extern u8 save_room_obj[];
+extern const u8 text_item_up[];
+extern const u8 load_room_obj[];
+extern const u8 save_room_obj[];
 extern u8 load_room_tile[];
 extern u8 save_room_tile[];
 extern u16 D_800D68D4[0x10];
@@ -42,7 +42,7 @@ extern u16 D_800D6AD4[0x100];
 extern u16 D_800D6CD4[0x100];
 extern u16 D_800D6ED4[0x100];
 extern u16 D_800D70D4[0x100];
-extern u16 D_800D72D4[0x100];
+extern const u16 D_800D72D4[0x100];
 extern u16 D_800DB0D4[0x10];
 extern u16 D_800DB0F4[0x10];
 extern u16 D_800DB114[0x70];

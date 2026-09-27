@@ -14,9 +14,9 @@
 
 u8 g_Scratchpad[SP_LEN];
 
-u16 g_RawVram[VRAM_W * VRAM_H];
+SOTN_XRAM u16 g_RawVram[VRAM_W * VRAM_H];
 GameApi g_ApiInit = {0};
-u8 g_DemoRecordingBuffer[DEMO_MAX_LEN];
+SOTN_XRAM u8 g_DemoRecordingBuffer[DEMO_MAX_LEN];
 extern bool g_IsQuitRequested;
 
 PfnEntityUpdate* PfnEntityUpdates;
@@ -47,8 +47,8 @@ GfxBank** g_GfxStageBank[0x40] = {
 extern u_long* D_800A3BB8[];
 
 FactoryBlueprint g_FactoryBlueprints[0xC0] = {0};
-u8 g_BmpCastleMap[0x20000];
-u8 g_DemoRecordingBuffer[DEMO_MAX_LEN];
+SOTN_XRAM u8 g_BmpCastleMap[0x20000];
+SOTN_XRAM u8 g_DemoRecordingBuffer[DEMO_MAX_LEN];
 
 extern u16 g_PalEquipIcon[320 * 16];
 
@@ -276,3 +276,30 @@ void InitVbVh() {
     ReadToArray("assets/dra/vb_2.bin", D_8018B4E0, LEN(D_8018B4E0));
     ReadToArray("assets/dra/vb_3.bin", D_801A9C80, LEN(D_801A9C80));
 }
+
+#ifdef ESP_PLATFORM
+// Which VRAM region holds the frame the game just finished. The GPU-side
+// display_area_px lags one PutDispEnv behind, i.e. it names the region the
+// game is ABOUT to draw into - reading that is what made the panel flicker.
+void Sotn_DisplayOrigin(int* x, int* y) {
+    *x = g_CurrentBuffer->disp.disp.x;
+    *y = g_CurrentBuffer->disp.disp.y;
+}
+
+// Hardware store-watchpoints on the two GpuBuffer.next links. After init
+// (dra/42398.c:789) nothing may write them; on the handheld something
+// rewrote one to 0x44 mid-game, and MainGame then fed ClearOTag an OT at
+// 0x4b8. A panic backtrace names the victim, not the writer - a watchpoint
+// stops the CPU on the writer's own store. Armed from the game thread, so
+// it covers core 0 (the game); a crash with no watchpoint hit would put the
+// writer on core 1 instead.
+#include "esp_cpu.h"
+void Sotn_ArmBufferWatch(void) {
+    esp_cpu_set_watchpoint(0, &g_GpuBuffers[0].next, 4,
+                           ESP_CPU_WATCHPOINT_STORE);
+    esp_cpu_set_watchpoint(1, &g_GpuBuffers[1].next, 4,
+                           ESP_CPU_WATCHPOINT_STORE);
+    printf("sotn: watching g_GpuBuffers[0/1].next at %p / %p\n",
+           (void*)&g_GpuBuffers[0].next, (void*)&g_GpuBuffers[1].next);
+}
+#endif

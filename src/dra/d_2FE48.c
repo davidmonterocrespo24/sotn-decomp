@@ -134,6 +134,6 @@ u16 D_800D70D4[] = {
 #include "gen/D_800D70D4.h"
 };
 
-u16 D_800D72D4[] = {
+const u16 D_800D72D4[] = {
 #include "gen/D_800D72D4.h"
 };

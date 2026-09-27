@@ -575,6 +575,18 @@ void MenuDrawImg(MenuContext* ctx, s32 x, s32 y, s32 w, u32 h, s32 u, s32 v,
     SPRT* sp;
     OT_TYPE* ot;
 
+#ifndef VERSION_PSX_ORIGINAL_OVERFLOW
+    // sprite[] is the LAST field of a GpuBuffer and the second buffer sits
+    // right behind it, starting with its `next` link. The menu (stats text
+    // above all) can ask for more than MAX_SPRT_COUNT sprites, and AddPrim
+    // then writes a prim header straight over g_GpuBuffers[1].next: next
+    // frame MainGame follows that link and ClearOTag writes into garbage.
+    // Caught by a hardware watchpoint on the link. 4DA70.c already applies
+    // this exact bound before using the array; these two sites never did.
+    if (g_GpuUsage.sp >= MAX_SPRT_COUNT) {
+        return;
+    }
+#endif
     ot = g_CurrentBuffer->ot;
     sp = &g_CurrentBuffer->sprite[g_GpuUsage.sp];
 #if defined(VERSION_US) || defined(VERSION_PSP)
@@ -4187,6 +4199,18 @@ void func_800FD39C(s32 x, s32 y, s32 w, s32 h, s32 u, s32 v, s32 pal, s32 _,
     GpuBuffer* gpuBuffer;
     SPRT* sprt;
 
+#ifndef VERSION_PSX_ORIGINAL_OVERFLOW
+    // See MenuDrawImg. sprite[] is the LAST field of a GpuBuffer and the second buffer sits
+    // right behind it, starting with its `next` link. The menu (stats text
+    // above all) can ask for more than MAX_SPRT_COUNT sprites, and AddPrim
+    // then writes a prim header straight over g_GpuBuffers[1].next: next
+    // frame MainGame follows that link and ClearOTag writes into garbage.
+    // Caught by a hardware watchpoint on the link. 4DA70.c already applies
+    // this exact bound before using the array; these two sites never did.
+    if (g_GpuUsage.sp >= MAX_SPRT_COUNT) {
+        return;
+    }
+#endif
     sprt = &g_CurrentBuffer->sprite[g_GpuUsage.sp];
     gpuBuffer = g_CurrentBuffer;
     SetSemiTrans(sprt, 0);

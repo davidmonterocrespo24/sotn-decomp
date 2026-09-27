@@ -2,6 +2,35 @@
 #include "dra.h"
 #include "dra_bss.h"
 
+#ifdef ESP_PLATFORM
+// SsVabOpenHead patches the VAB header in place, so these cannot live in
+// flash rodata: masters stay const (flash), the game writes PSRAM copies.
+#include <string.h>
+static const u8 aPbav_rom[] = {
+#include GEN_VERSION(vh_0.h)
+};
+static const u8 aPbav_0_rom[] = {
+#include GEN_VERSION(vh_1.h)
+};
+static const u8 aPbav_2_rom[] = {
+#include GEN_VERSION(vh_2.h)
+};
+static const u8 aPbav_1_rom[] = {
+#include GEN_VERSION(vh_3.h)
+};
+SOTN_XRAM u8 aPbav[0x3000];
+SOTN_XRAM u8 aPbav_0[0x2000];
+SOTN_XRAM u8 aPbav_1[0x2000];
+SOTN_XRAM u8 aPbav_2[0x2000];
+__attribute__((constructor)) static void CopyVabHeaders(void) {
+    memcpy(aPbav, aPbav_rom, sizeof(aPbav_rom));
+    memcpy(aPbav_0, aPbav_0_rom, sizeof(aPbav_0_rom));
+    memcpy(aPbav_1, aPbav_1_rom, sizeof(aPbav_1_rom));
+    memcpy(aPbav_2, aPbav_2_rom, sizeof(aPbav_2_rom));
+}
+#else
+// NOT const: SsVabOpenHead patches the VAB header in place (PSX RAM
+// semantics); a const build faults on write-protected rodata
 u8 aPbav[] = {
 #include GEN_VERSION(vh_0.h)
 };
@@ -14,6 +43,7 @@ u8 aPbav_2[] = {
 u8 aPbav_1[] = {
 #include GEN_VERSION(vh_3.h)
 };
+#endif
 
 // files included as headers as data should not be aligned by 4
 #if !defined(VERSION_PC)

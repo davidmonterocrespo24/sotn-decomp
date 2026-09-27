@@ -269,7 +269,7 @@ static AluFrame D_psp_09234B60;
 
 // clang-format off
 
-AluFrame* D_800CF324[] = {
+const AluFrame* D_800CF324[] = {
     NULL,        &D_800CF748, &D_800CF750, &D_800CF758, &D_800CF760,
     &D_800CF768, &D_800CF770, &D_800CF778, &D_800CF780, &D_800CF788,
     &D_800CF790, &D_800CF798, &D_800CF7A0, &D_800CF7A8, &D_800CF7B0,

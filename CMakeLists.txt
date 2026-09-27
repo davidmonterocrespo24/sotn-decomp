@@ -21,12 +21,22 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang" AND NOT WIN32)
     set(CMAKE_BUILD_TYPE Debug)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
     set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=address")
 
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-implicit-function-declaration")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-incompatible-pointer-types")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-int-conversion")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-return-mismatch")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-return-type")
+endif()
+
+if (WIN32 AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    # w64devkit gcc has no ASan; keep the decomp's warning relaxations only
+    set(CMAKE_BUILD_TYPE Debug)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-implicit-function-declaration")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-incompatible-pointer-types")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-int-conversion")
@@ -395,6 +405,67 @@ set(SOURCE_FILES_STAGE_DAI
     src/st/dai/e_stained_glass.c
     src/st/dai/e_tower_exit.c
     src/st/dai/e_winged_guard.c
+)
+
+set(SOURCE_FILES_STAGE_NP3
+    src/pc/stages/stage_np3.c
+    src/st/np3/header.c
+    src/st/np3/gen/us/e_laydef.c
+    src/st/np3/e_init.c
+    src/st/np3/gen/rooms.c
+    src/st/np3/gen/us/e_layout.c
+    src/st/np3/gen/sprites.c
+    src/st/np3/stage_data.c
+    src/st/np3/background_block_init.c
+    src/st/np3/e_room_bg.c
+    src/st/np3/e_lock_camera.c
+    src/st/np3/e_breakable.c
+    src/st/np3/d_prize_drops.c
+    src/st/np3/st_update.c
+    src/st/np3/collision.c
+    src/st/np3/create_entity.c
+    src/st/np3/e_red_door_tiles.c
+    src/st/np3/e_red_door.c
+    src/st/np3/st_common.c
+    src/st/np3/e_collect.c
+    src/st/np3/e_misc.c
+    src/st/np3/e_stage_name.c
+    src/st/np3/e_particles.c
+    src/st/np3/e_room_fg.c
+    src/st/np3/popup.c
+    src/st/np3/prim_helpers.c
+    src/st/np3/bss.c
+    src/st/np3/4E04C.c
+    src/st/np3/d_water_data.c
+    src/st/np3/water_effects.c
+    src/st/np3/entrance_weights.c
+    src/st/np3/e_background_bushes_trees.c
+    src/st/np3/e_background_lightning.c
+    src/st/np3/e_bat.c
+    src/st/np3/blade.c
+    src/st/np3/e_bloody_zombie.c
+    src/st/np3/e_bone_scimitar.c
+    src/st/np3/e_castle_door.c
+    src/st/np3/e_cavern_door.c
+    src/st/np3/e_explosion_puff_opaque.c
+    src/st/np3/e_heartroom.c
+    src/st/np3/e_jewel_sword_puzzle.c
+    src/st/np3/e_merman.c
+    src/st/np3/e_merman2.c
+    src/st/np3/e_owl_knight.c
+    src/st/np3/e_shutting_window.c
+    src/st/np3/e_sky_entities.c
+    src/st/np3/e_stairway.c
+    src/st/np3/e_tilemap_shuffler.c
+    src/st/np3/e_transparent_water.c
+    src/st/np3/e_trapdoor.c
+    src/st/np3/e_unkId16.c
+    src/st/np3/e_zombie.c
+    src/st/np3/gaibon.c
+    src/st/np3/slogra.c
+    src/st/np3/giantbro_helpers.c
+    src/st/np3/gurkha.c
+    src/st/np3/hammer.c
 )
 
 set(SOURCE_FILES_STAGE_CEN
@@ -818,10 +889,28 @@ endif()
 
 add_subdirectory(tools/psyz/psyz)
 
+# The ESP32-S3 target has no dynamic linker, so its stages must live inside
+# the executable. This flag rehearses that shape on PC: WRP compiles into the
+# main binary, its InitStage is renamed to a namespaced symbol, the runtime
+# loader resolves "wrp" from a table before trying dlopen, and the wrp DLL is
+# not built at all (a source-level rename would otherwise leak into it - CMake
+# source properties are per-directory, not per-target).
+option(SOTN_STATIC_WRP "Link the WRP stage into the executable" OFF)
+
+if (SOTN_STATIC_WRP)
+    list(APPEND SOURCE_FILES_PC ${SOURCE_FILES_STAGE_WRP})
+    set_source_files_properties(src/pc/stages/stage_wrp.c PROPERTIES
+        COMPILE_DEFINITIONS "InitStage=WRP_StaticInitStage")
+endif()
+
 add_executable(${PROJECT_NAME}
     ${SOURCE_FILES_PC}
     ${SOURCE_FILES_3RD}
     ${SOURCE_FILES_CORE})
+
+if (SOTN_STATIC_WRP)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE SOTN_STATIC_WRP)
+endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC
     include
@@ -846,6 +935,12 @@ sotn_str_apply(${PROJECT_NAME})
 if (WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE psyz)
     set_target_properties(${PROJECT_NAME} PROPERTIES ENABLE_EXPORTS ON)
+    if (NOT MSVC)
+        # MinGW counterpart of the dumpbin-generated .def below: overlays
+        # resolve code AND data (g_api, g_PrimBuf) against the executable, so
+        # every symbol has to reach the import library.
+        target_link_options(${PROJECT_NAME} PRIVATE -Wl,--export-all-symbols)
+    endif()
     if (MSVC)
         # Windows PE has no -rdynamic equivalent, and a DLL must resolve all
         # externals at link time.
@@ -908,9 +1003,12 @@ endfunction()
 add_overlay(sel ${SOURCE_FILES_STAGE_SEL})
 add_overlay(no2 ${SOURCE_FILES_STAGE_NO2})
 add_overlay(dai ${SOURCE_FILES_STAGE_DAI})
+add_overlay(np3 ${SOURCE_FILES_STAGE_NP3})
 add_overlay(cen ${SOURCE_FILES_STAGE_CEN})
 add_overlay(nz0 ${SOURCE_FILES_STAGE_NZ0})
-add_overlay(wrp ${SOURCE_FILES_STAGE_WRP})
+if (NOT SOTN_STATIC_WRP)
+    add_overlay(wrp ${SOURCE_FILES_STAGE_WRP})
+endif()
 add_overlay(dre ${SOURCE_FILES_STAGE_DRE})
 add_overlay(st0 ${SOURCE_FILES_STAGE_ST0})
 add_overlay(rwrp ${SOURCE_FILES_STAGE_RWRP})

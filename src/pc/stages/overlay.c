@@ -7,7 +7,25 @@
 #include <string.h>
 #include "overlay.h"
 
-#if defined(_WIN32)
+#if defined(ESP_PLATFORM)
+// No dynamic linker on the ESP32-S3: every stage the firmware knows lives in
+// the static table below, and this arm makes the dynamic path a failing stub.
+#define OVL_EXT ".none"
+typedef void* OvlHandle;
+static OvlHandle OvlOpen(const char* path) { (void)path; return 0; }
+static void* OvlSym(OvlHandle h, const char* name) {
+    (void)h;
+    (void)name;
+    return 0;
+}
+static void OvlClose(OvlHandle h) { (void)h; }
+static const char* OvlError(void) { return "no dynamic linker on this target"; }
+static bool GetExePath(char* buf, size_t size) {
+    (void)buf;
+    (void)size;
+    return false;
+}
+#elif defined(_WIN32)
 __declspec(dllimport) void* __stdcall LoadLibraryA(const char* lpLibFileName);
 __declspec(dllimport) void* __stdcall GetProcAddress(
     void* hModule, const char* lpProcName);
@@ -129,9 +147,56 @@ static void* OpenOverlayEntrypoint(
 }
 
 static OvlHandle CurrentStageOverlay = NULL;
+
+#ifdef SOTN_STATIC_WRP
+// Statically linked stages, resolved before any dynamic loading. This is the
+// whole overlay mechanism on the ESP32-S3 target, where no dynamic linker
+// exists; on PC it coexists with the DLL path so unported stages keep working.
+void WRP_StaticInitStage(Overlay* o);
+#ifdef SOTN_STATIC_NZ0
+void NZ0_StaticInitStage(Overlay* o);
+#endif
+#ifdef SOTN_STATIC_SEL
+void SEL_StaticInitStage(Overlay* o);
+#endif
+#ifdef SOTN_STATIC_NP3
+void NP3_StaticInitStage(Overlay* o);
+#endif
+static const struct {
+    const char* name;
+    PfnInitStage init;
+} static_stages[] = {
+    {"wrp", WRP_StaticInitStage},
+#ifdef SOTN_STATIC_NZ0
+    {"nz0", NZ0_StaticInitStage},
+#endif
+#ifdef SOTN_STATIC_SEL
+    {"sel", SEL_StaticInitStage},
+#endif
+#ifdef SOTN_STATIC_NP3
+    {"np3", NP3_StaticInitStage},
+#endif
+};
+#endif
+
 bool LoadStageOverlay(const char* name, Overlay* o) {
     OvlHandle handle;
     PfnInitStage entrypoint;
+
+#ifdef SOTN_STATIC_WRP
+    for (size_t i = 0; i < sizeof(static_stages) / sizeof(*static_stages);
+         i++) {
+        if (!strcmp(name, static_stages[i].name)) {
+            if (CurrentStageOverlay) {
+                OvlClose(CurrentStageOverlay);
+                CurrentStageOverlay = NULL;
+            }
+            INFOF("stage '%s' statically linked", name);
+            static_stages[i].init(o);
+            return true;
+        }
+    }
+#endif
 
     if (CurrentStageOverlay) {
         OvlClose(CurrentStageOverlay);

@@ -2,6 +2,12 @@
 //! PSPO=4,p
 #include "dra.h"
 
+// Fade prims ride a 4-link chain in g_PrimBuf; earlier wild writers proved
+// links can be stomped - validate every hop or the walk leaves the pool
+// (ESP32 port hardening, latent upstream).
+#define FADE_PRIM_OK(p) ((p) >= &g_PrimBuf[0] && (p) < &g_PrimBuf[MAX_PRIM_COUNT])
+
+
 #define FADE_DONE (-1)
 
 typedef struct {
@@ -172,6 +178,9 @@ void UpdateFade(bool skipFollowup) {
 
     prim1 = &g_PrimBuf[fade.fadePrim];
     prim2 = prim1->next;
+    if (!FADE_PRIM_OK(prim2)) {
+        return;
+    }
     prim1clut = prim1->clut;
     switch (fade.step - 1) {
     case FADE_DONE:
@@ -241,7 +250,13 @@ void UpdateFade(bool skipFollowup) {
     }
 
     prim1 = prim2->next;
+    if (!FADE_PRIM_OK(prim1)) {
+        return;
+    }
     prim2 = prim1->next;
+    if (!FADE_PRIM_OK(prim2)) {
+        return;
+    }
     prim1clut = prim1->clut;
     switch (fade.stepFollowup - 1) {
     case FADE_DONE:

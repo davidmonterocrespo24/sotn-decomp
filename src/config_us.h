@@ -19,7 +19,7 @@ SubweaponDef g_SubwpnDefs[] = {
     {40, 5, 0x1020, 1, 0x18, 8, 0x5D, 0x06, 2, 0x01, 0, 0, 0},
 };
 
-Equipment g_EquipDefs[] = {
+const Equipment g_EquipDefs[] = {
     {_S("Empty hand"), "No weapon （bare hands）", 0, 0, 0, 3, 255, 0, 0, 36, 42, 0, 5, 128, 0, 0, false, 8, 0, 0, 0, 0, 4, 2, 1, 1, 1, 1},
     {_S("Monster vial 1"), "Summons merman ally ［use］", 40, 0, 0, 8, 40, 0, 130, 96, 50, 0, 0, 8, 0, 0, true, 20, 0, 0, 0, 0, 4, 2, 1, 153, 151, 1},
     {_S("Monster vial 2"), "Summons bat ally ［use］", 25, 0, 0, 8, 41, 0, 130, 96, 50, 0, 0, 8, 0, 0, true, 20, 0, 0, 0, 0, 4, 2, 1, 153, 147, 1},
@@ -239,7 +239,7 @@ Equipment g_EquipDefs[] = {
     {_S(""), "", 0, 0, 0, 10, 45, 0, 131, 190, 55, 14, 0, 1, 0, 0, false, 0, 0, 0, 0, 0, 0, 0, 1, 157, 147, 1},
 };
 
-Accessory g_AccessoryDefs[] = {
+const Accessory g_AccessoryDefs[] = {
     {_S("----"), "Unequip", 0, 0, 0, 0, 0, 0, 0, 0x0000, 0x0000, 0x0000, 184, 184, 1},
     {_S("Cloth tunic"), "Simple cloth tunic", 0, 1, 0, 0, 0, 0, 0, 0x0000, 0x0000, 0x0000, 185, 185, 1},
     {_S("Hide cuirass"), "Tanned leather cuirass", 0, 2, 0, 0, 0, 0, 0, 0x0000, 0x0000, 0x0000, 186, 186, 1},
@@ -509,7 +509,7 @@ RelicDesc g_RelicDefs[] = {
     {"Eye of Vlad", "１ of ５ Treasures． LCK ＋１０", 269, 276, 0},
 };
 
-EnemyDef g_EnemyDefs[] = {
+const EnemyDef g_EnemyDefs[] = {
     /* 0x000 */ {_S(""), 32767, 0, 0, 0, 2, 0x0000, 0x0000, 0x0000, 0x0000, 0, 0, 0, 0, 0, 0, 8, 8, 0xAD202000},
     /* 0x001 */ {_S(""), 32767, 0, 0, 0, 1, 0x0000, 0x0000, 0x0000, 0x0000, 0, 0, 0, 0, 0, 0, 8, 12, 0x0D202000},
     /* 0x002 */ {_S(""), 32767, 0, 0, 0, 0, 0x0000, 0x0000, 0x0000, 0x0000, 0, 0, 0, 0, 0, 0, 0, 0, 0xCD202000},

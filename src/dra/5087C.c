@@ -37,7 +37,7 @@ bool g_canRevealMap;
 #endif
 static s32 D_801375C8;
 
-RoomTeleport D_800A245C[] = {
+const RoomTeleport D_800A245C[] = {
     {496, 392, 0x00A0, STAGE_NO0, STAGE_NZ0},
     {240, 648, 0x0000, STAGE_NO0, STAGE_NO2},
     {16, 132, 0x0038, STAGE_NO0, STAGE_NO1},
@@ -1393,7 +1393,9 @@ void RunMainEngine(void) {
 #else
         g_unkGraphicsStruct.primIndex = AllocPrimitives(PRIM_GT4, 16);
 #endif
-        if (g_unkGraphicsStruct.primIndex != 0) {
+        // AllocPrimitives returns -1 on exhaustion; indexing g_PrimBuf[-1]
+        // walks garbage links (found on the ESP32 port, latent upstream)
+        if (g_unkGraphicsStruct.primIndex > 0) {
             prim = &g_PrimBuf[g_unkGraphicsStruct.primIndex];
             while (prim != NULL) {
                 prim->tpage = 0x1A;

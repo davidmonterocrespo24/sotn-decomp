@@ -2,31 +2,31 @@
 #include "game.h"
 
 #ifndef HARD_LINK
-u8 gfx_portrait_alucard[] = {
+const u8 gfx_portrait_alucard[] = {
 #include "gen/gfx_portrait_alucard.h"
 };
 
-u8 gfx_portrait_maria[] = {
+const u8 gfx_portrait_maria[] = {
 #include "gen/gfx_portrait_maria.h"
 };
 
-u8 gfx_portrait_richter[] = {
+const u8 gfx_portrait_richter[] = {
 #include "gen/gfx_portrait_richter.h"
 };
 #endif
 
-u8 D_80192228[] = {
+const u8 D_80192228[] = {
 #include "gen/D_80192228.h"
 };
 
-u8 D_80193358[] = {
+const u8 D_80193358[] = {
 #include "gen/D_80193358.h"
 };
 
-u8 D_80194018[] = {
+const u8 D_80194018[] = {
 #include "gen/D_80194018.h"
 };
 
-u8 D_80195274[] = {
+const u8 D_80195274[] = {
 #include "gen/D_80195274.h"
 };

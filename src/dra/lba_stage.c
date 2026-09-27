@@ -4,7 +4,7 @@
 #include "lba.h"
 
 // clang-format off
-Lba g_StagesLba[] = {
+const Lba g_StagesLba[] = {
 #if defined(VERSION_US)
     {ST_NO0_F_BIN_OFF, ST_NO0_BIN_OFF, ST_NO0_BIN_LEN, ST_NO0_VH_OFF, ST_NO0_VH_LEN, ST_NO0_VB_LEN, MU_MARBLE_GALLERY, "F_NO0", "NO0", "rou", 0x16, 0xFF},
     {ST_NO1_F_BIN_OFF, ST_NO1_BIN_OFF, ST_NO1_BIN_LEN, ST_NO1_VH_OFF, ST_NO1_VH_LEN, ST_NO1_VB_LEN, MU_TOWER_OF_MIST, "F_NO1", "NO1", "tou", 0x02, 0xFF},

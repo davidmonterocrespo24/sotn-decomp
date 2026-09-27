@@ -14,8 +14,8 @@ extern GAME_IMPORT PfnEntityUpdate* PfnEntityUpdates;
 extern GAME_IMPORT LayoutEntity** g_pStObjLayoutHorizontal;
 extern GAME_IMPORT LayoutEntity** g_pStObjLayoutVertical;
 
-extern u8 cutscene_nz0_maria[];
-extern u8 cutscene_nz0_alucard[];
+extern const u8 cutscene_nz0_maria[];
+extern const u8 cutscene_nz0_alucard[];
 
 u8 cutscene_data[] = {
 #include "../../st/nz0/gen/cutscene_data.h"

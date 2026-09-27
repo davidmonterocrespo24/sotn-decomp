@@ -676,8 +676,14 @@ void HitDetection(void) {
             otherEntity = otherEntity->nextPart;
         } while (otherEntity != NULL && otherEntity != entityHit);
     }
+    if (g_unkGraphicsStruct.primIndex <= 0) {
+        return; // alloc failed or never made: nothing to animate
+    }
     prim = &g_PrimBuf[g_unkGraphicsStruct.primIndex];
     while (prim != NULL) {
+        if (prim < &g_PrimBuf[0] || prim >= &g_PrimBuf[MAX_PRIM_COUNT]) {
+            return; // stomped link left the pool
+        }
         if (prim->drawMode != DRAW_HIDE) {
             miscVar2 = prim->p1;
             prim->u0 = prim->u2 = g_testColluCoords[miscVar2];

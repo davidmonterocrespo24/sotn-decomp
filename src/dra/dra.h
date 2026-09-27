@@ -563,17 +563,24 @@ typedef struct {
 extern u8 aPqes[];         // TODO: extract file
 extern u8 aPqes_0[];       // TODO: extract file
 extern u8 aPqes_1[];       // TODO: extract file
+#ifdef ESP_PLATFORM
+extern u8 aPbav[0x3000];   // writable PSRAM copy (SsVabOpenHead patches it)
+extern u8 aPbav_0[0x2000];
+extern u8 aPbav_1[0x2000];
+extern u8 aPbav_2[0x2000];
+#else
 extern u8 aPbav[0x3000];   // TODO: extract file
 extern u8 aPbav_0[0x2000]; // TODO: extract file
 extern u8 aPbav_1[0x2000]; // TODO: extract file
 extern u8 aPbav_2[0x2000]; // TODO: extract file
+#endif
 
 extern s16 g_ButtonMask[];
 extern u16 D_800A04CC[];
 extern u32 D_800A04F8;
 extern s32 D_800A2438;
 
-extern RoomTeleport D_800A245C[];
+extern const RoomTeleport D_800A245C[];
 extern u32 D_800A2D24;
 extern const char* D_800A83AC[];
 
@@ -582,7 +589,7 @@ extern u16 g_JosephsCloakColors[4];
 extern GfxBank** g_GfxSharedBank[];
 extern s16** D_800A3B70[18];
 extern u_long* D_800A3BB8[];
-extern Lba g_StagesLba[80];
+extern const Lba g_StagesLba[80];
 
 extern SubweaponDef g_SubwpnDefs[13];
 // These are different on PSP since they have text that needs translating.
@@ -599,9 +606,9 @@ extern Equipment* g_EquipDefs;
 extern RelicDesc g_RelicDefs[30];
 extern SpellDef g_SpellDefs[28];
 extern const char* g_MenuStr[110];
-extern EnemyDef g_EnemyDefs[400];
+extern const EnemyDef g_EnemyDefs[400];
 extern Accessory g_AccessoryDefs[90];
-extern Equipment g_EquipDefs[217];
+extern const Equipment g_EquipDefs[217];
 #endif
 extern s32 g_ExpNext[];
 extern s16 D_800AC958[];
@@ -679,7 +686,7 @@ extern AnimationFrame D_800AFDA4[];
 extern RECT c_backbufferClear;
 extern AnimationFrame D_800AFFB8[];
 extern s8 D_800B0130[];
-extern AnimationFrame* D_800B01B8[];
+extern AnimationFrame* const D_800B01B8[];
 extern u8 D_800B0608[];
 extern s32 D_800B0688[];
 extern u32 D_800B06C8[24];
@@ -698,7 +705,7 @@ extern s16 D_800B08A8[];
 
 extern s16 g_CdVolumeTable[];
 extern struct SeqData g_SeqInfo[];
-extern struct XaMusicConfig g_XaMusicConfigs[];
+extern const struct XaMusicConfig g_XaMusicConfigs[];
 extern s32 g_DebugEnabled;
 extern s32 D_800BD1C4;
 extern s32 g_VabAddrs[6];
@@ -723,7 +730,7 @@ extern const char aRgb02x02x02x;
 extern const char aSp03x;
 extern const char aSp1603x;
 extern const char aTile03x;
-extern Unkstruct_800BF554 g_SfxData[];
+extern const Unkstruct_800BF554 g_SfxData[];
 
 extern char* aLightTimer02x;
 extern SVECTOR D_800E2024;

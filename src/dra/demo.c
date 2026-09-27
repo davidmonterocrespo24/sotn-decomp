@@ -295,6 +295,16 @@ void DemoUpdate(void) {
     u8 frameCount;
     s32 demoOffset;
 
+#ifdef VERSION_PC
+    /* The PSX read these three bytes unconditionally - harmless garbage when no
+       demo is active, because g_DemoPtr pointed somewhere in RAM. On PC the
+       pointer is NULL until a demo is armed, and launching straight into a
+       stage dereferences it before any demo exists. The values are unused in
+       the None/End arms, so leaving early preserves the original behaviour. */
+    if (g_DemoMode == Demo_None || g_DemoMode == Demo_End) {
+        return;
+    }
+#endif
     btnLo = g_DemoPtr[0];
     btnHi = g_DemoPtr[1];
     frameCount = g_DemoPtr[2];

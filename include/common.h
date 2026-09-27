@@ -55,7 +55,22 @@
 #define SYNC_FIELD(struct1, struct2, field)                                    \
     STATIC_ASSERT(OFF(struct1, field) == OFF(struct2, field), "unsynced")
 
-#if defined(_WIN32) && defined(OVERLAY_BUILD)
+/* On the ESP32-S3 the multi-hundred-KB statics live in octal PSRAM: internal
+   DRAM is 512KB and the plain-.bss total overflowed it by 3.3MB, which is
+   simply the plan's placement table asserting itself at link time. */
+#ifdef ESP_PLATFORM
+#include "esp_attr.h"
+#define SOTN_XRAM EXT_RAM_BSS_ATTR
+#else
+#define SOTN_XRAM
+#endif
+
+#if defined(_WIN32) && defined(OVERLAY_BUILD) && defined(_MSC_VER)
+/* MSVC needs dllimport for data crossing the overlay/exe boundary. MinGW does
+   not - its auto-import resolves plain extern data through runtime
+   pseudo-relocations - and dllimport there breaks the stages that also define
+   the symbol locally: the compiler emits an __imp_ reference the local
+   definition never satisfies. */
 #define GAME_IMPORT __declspec(dllimport)
 #else
 #define GAME_IMPORT

@@ -21,7 +21,14 @@ void BottomCornerText(u8* str, u8 leftAlign) {
     // Reset array pointer
     chIdx = (u8*)&toPrint;
 
-    while (true) {
+    // The PSX text format terminates with FF 00; the PC port feeds plain C
+    // strings (enemy names), so the scan runs past the string end and
+    // smashes the 64-byte stack buffer - it froze the ESP32 the moment a
+    // Faerie-Scroll enemy name popped up. Bound the scan to the buffer.
+    // (latent upstream: on PC the overrun lands in a big .data blob)
+    int scanned = 0;
+    while (scanned < (int)sizeof(toPrint) - 1) {
+        scanned++;
         // Copy values from the incoming arg0 array to the local array, until we
         // get a 0xFF followed by a 0
         ch = *str++;

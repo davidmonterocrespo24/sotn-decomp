@@ -12,11 +12,11 @@ SeqData g_SeqInfo[] = {
     {0x68, 0x40, 0x31},
 };
 
-XaMusicConfig g_XaMusicConfigs[] = {
+const XaMusicConfig g_XaMusicConfigs[] = {
 #include GEN_VERSION(xa_music_config.h)
 };
 
-Unkstruct_800BF554 g_SfxData[] = {
+const Unkstruct_800BF554 g_SfxData[] = {
 #include GEN_VERSION(sfx_config.h)
 };
 

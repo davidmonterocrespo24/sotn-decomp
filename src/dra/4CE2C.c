@@ -268,7 +268,19 @@ static void SetRoomForegroundLayer(LayerDef* layerDef) {
         return;
     }
 
+#ifdef ESP_PLATFORM
+    // gen tile layouts live in flash rodata on this target, but the game
+    // mutates room tiles at runtime (red doors, breakables): point the
+    // tilemap at a writable PSRAM copy instead
+    {
+        extern u16* Sotn_TilemapWritableCopy(const u16* src, int count);
+        int tw = (layerDef->rect.right - layerDef->rect.left + 1) * 16;
+        int th = (layerDef->rect.bottom - layerDef->rect.top + 1) * 16;
+        g_Tilemap.fg = Sotn_TilemapWritableCopy(layerDef->layout, tw * th);
+    }
+#else
     g_Tilemap.fg = layerDef->layout;
+#endif
     g_Tilemap.order = layerDef->zPriority;
     if (layerDef->rect.params & LAYOUT_RECT_PARAMS_UNKNOWN_40) {
         g_Tilemap.order = 0x60;

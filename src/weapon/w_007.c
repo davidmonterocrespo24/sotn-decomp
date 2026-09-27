@@ -9,7 +9,7 @@
 #define g_Animset2 w_007_2
 #include "sfx.h"
 
-static u16 D_35000_8017A884[N_ARRAY_PAL][COLORS_PER_PAL] = {
+static const u16 D_35000_8017A884[N_ARRAY_PAL][COLORS_PER_PAL] = {
     {COLOR16(0, 0, 0, 0), COLOR16(4, 4, 5, 0), COLOR16(0, 0, 0, 1),
      COLOR16(9, 2, 1, 0), COLOR16(16, 11, 9, 0), COLOR16(19, 17, 14, 0),
      COLOR16(15, 4, 5, 0), COLOR16(19, 6, 12, 0), COLOR16(26, 11, 8, 0),

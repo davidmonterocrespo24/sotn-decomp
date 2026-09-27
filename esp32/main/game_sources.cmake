@@ -1,0 +1,264 @@
+# Generated from the root CMakeLists' curated lists - the PC build's exact
+# file set. GLOBs swept in configuration-specific extras (47BB8.c is the
+# PSX-side LoadFileSim, superseded on PC by sim_pc.c) that must not link.
+
+set(GAME_SOURCE_FILES_DRA
+    ${REPO}/src/dra/42398.c
+    ${REPO}/src/dra/game_handlers.c
+    ${REPO}/src/dra/pads.c
+    ${REPO}/src/dra/save_mgr.c
+    ${REPO}/src/dra/4A538.c
+    ${REPO}/src/dra/4AEA4.c
+    ${REPO}/src/dra/4B758.c
+    ${REPO}/src/dra/4CE2C.c
+    ${REPO}/src/dra/4DA70.c
+    ${REPO}/src/dra/collider.c
+    ${REPO}/src/dra/demo.c
+    ${REPO}/src/dra/5087C.c
+    ${REPO}/src/dra/lba_stage.c
+    ${REPO}/src/dra/config_us.c
+    ${REPO}/src/dra/menu.c
+    ${REPO}/src/dra/timeattack.c
+    ${REPO}/src/dra/5D5BC.c
+    ${REPO}/src/dra/5F60C.c
+    ${REPO}/src/dra/624DC.c
+    ${REPO}/src/dra/62DEC.c
+    ${REPO}/src/dra/d_37d8.c
+    ${REPO}/src/dra/66590.c
+    ${REPO}/src/dra/d_CD80.c
+    ${REPO}/src/dra/692E8.c
+    ${REPO}/src/dra/6BF64.c
+    ${REPO}/src/dra/alu_anim.c
+    ${REPO}/src/dra/6DF70.c
+    ${REPO}/src/dra/6E42C.c
+    ${REPO}/src/dra/6FDF8.c
+    ${REPO}/src/dra/70394.c
+    ${REPO}/src/dra/704D0.c
+    ${REPO}/src/dra/71830.c
+    ${REPO}/src/dra/7879C.c
+    ${REPO}/src/dra/7E4BC.c
+    ${REPO}/src/dra/d_DBD4.c
+    ${REPO}/src/dra/d_E294.c
+    ${REPO}/src/dra/d_10798.c
+    ${REPO}/src/dra/84B88.c
+    ${REPO}/src/dra/8A0A4.c
+    ${REPO}/src/dra/8BEF8.c
+    ${REPO}/src/dra/8C600.c
+    ${REPO}/src/dra/8D3E8.c
+    ${REPO}/src/dra/sound.c
+    ${REPO}/src/dra/sound_data.c
+    ${REPO}/src/dra/d_2217C.c
+    ${REPO}/src/dra/d_24CEC.c
+    ${REPO}/src/dra/d_2F324.c
+    ${REPO}/src/dra/d_2FE48.c
+    ${REPO}/src/dra/d_3B0D4.c
+    ${REPO}/src/dra/bss.c
+)
+
+set(GAME_SOURCE_FILES_RIC
+    ${REPO}/src/ric/pl_header.c
+    ${REPO}/src/ric/pl_main.c
+    ${REPO}/src/ric/pl_debug.c
+    ${REPO}/src/ric/pl_steps.c
+    ${REPO}/src/ric/pl_utils.c
+    ${REPO}/src/ric/pl_setstep.c
+    ${REPO}/src/ric/pl_collision.c
+    ${REPO}/src/ric/pl_blueprints.c
+    ${REPO}/src/ric/pl_whip.c
+    ${REPO}/src/ric/pl_subweapon_dummy.c
+    ${REPO}/src/ric/pl_subweapon_holywater.c
+    ${REPO}/src/ric/pl_subweapon_cross.c
+    ${REPO}/src/ric/pl_subweapons.c
+    ${REPO}/src/ric/2F8E8.c
+    ${REPO}/src/ric/319C4.c
+    ${REPO}/src/ric/spritebanks.c
+    ${REPO}/src/ric/pl_crash_cross.c
+    ${REPO}/src/ric/bss.c
+    ${REPO}/src/ric/d_18568.c
+    ${REPO}/src/ric/d_1859C.c
+    ${REPO}/src/ric/pl_anims.c
+)
+
+set(GAME_SOURCE_FILES_WEAPON
+    ${REPO}/src/weapon/w_000.c
+    ${REPO}/src/weapon/w_002.c
+    ${REPO}/src/weapon/w_007.c
+    ${REPO}/src/weapon/w_012.c
+    ${REPO}/src/weapon/w_034.c
+    ${REPO}/src/weapon/w_037.c
+    ${REPO}/src/weapon/w_041.c
+    ${REPO}/src/weapon/w_045.c
+    ${REPO}/src/weapon/w_046.c
+    ${REPO}/src/weapon/w_051.c
+    ${REPO}/src/weapon/w_052.c
+)
+
+set(GAME_SOURCE_FILES_WRP
+    ${REPO}/src/st/wrp/header.c
+    ${REPO}/src/st/wrp/sprite_banks.c
+    ${REPO}/src/st/wrp/cluts.c
+    ${REPO}/src/st/wrp/layers.c
+    ${REPO}/src/st/wrp/graphics_banks.c
+    ${REPO}/src/st/wrp/gen/e_laydef.c
+    ${REPO}/src/st/wrp/e_init.c
+    ${REPO}/src/st/wrp/background_block_init.c
+    ${REPO}/src/st/wrp/e_room_bg.c
+    ${REPO}/src/st/wrp/e_lock_camera.c
+    ${REPO}/src/st/wrp/e_breakable.c
+    ${REPO}/src/st/wrp/d_prize_drops.c
+    ${REPO}/src/st/wrp/gen/rooms.c
+    ${REPO}/src/st/wrp/gen/e_layout.c
+    ${REPO}/src/st/wrp/stage_data.c
+    ${REPO}/src/st/wrp/gen/us/sprites.c
+    ${REPO}/src/st/wrp/warp.c
+    ${REPO}/src/st/wrp/st_update.c
+    ${REPO}/src/st/wrp/collision.c
+    ${REPO}/src/st/wrp/create_entity.c
+    ${REPO}/src/st/wrp/e_red_door_tiles.c
+    ${REPO}/src/st/wrp/e_red_door.c
+    ${REPO}/src/st/wrp/st_common.c
+    ${REPO}/src/st/wrp/e_collect.c
+    ${REPO}/src/st/wrp/e_misc.c
+    ${REPO}/src/st/wrp/e_stage_name.c
+    ${REPO}/src/st/wrp/e_particles.c
+    ${REPO}/src/st/wrp/e_room_fg.c
+    ${REPO}/src/st/wrp/popup.c
+    ${REPO}/src/st/wrp/prim_helpers.c
+    ${REPO}/src/st/wrp/bss.c
+)
+
+# ---- NZ0 stage (exact root-CMake list) ----
+set(GAME_SOURCE_FILES_NZ0
+    ${REPO}/src/pc/stages/stage_nz0.c
+    ${REPO}/src/st/nz0/header.c
+    ${REPO}/src/st/nz0/bss.c
+    ${REPO}/src/st/nz0/gen/e_laydef.c
+    ${REPO}/src/st/nz0/e_init.c
+    ${REPO}/src/st/nz0/gen/rooms.c
+    ${REPO}/src/st/nz0/gen/e_layout.c
+    ${REPO}/src/st/nz0/stage_data.c
+    ${REPO}/src/st/nz0/gen/sprites.c
+    ${REPO}/src/st/nz0/background_block_init.c
+    ${REPO}/src/st/nz0/e_room_bg.c
+    ${REPO}/src/st/nz0/e_lock_camera.c
+    ${REPO}/src/st/nz0/e_breakable.c
+    ${REPO}/src/st/nz0/d_prize_drops.c
+    ${REPO}/src/st/nz0/e_red_eye_bust.c
+    ${REPO}/src/st/nz0/e_purple_brick.c
+    ${REPO}/src/st/nz0/e_left_secret_room_wall.c
+    ${REPO}/src/st/nz0/e_puzzle.c
+    ${REPO}/src/st/nz0/e_cannon.c
+    ${REPO}/src/st/nz0/e_elevator2.c
+    ${REPO}/src/st/nz0/e_nz0_room2.c
+    ${REPO}/src/st/nz0/e_life_max_tank.c
+    ${REPO}/src/st/nz0/e_blue_flame_table.c
+    ${REPO}/src/st/nz0/e_explosion_puff_opaque.c
+    ${REPO}/src/st/nz0/bossfight.c
+    ${REPO}/src/st/nz0/slogra.c
+    ${REPO}/src/st/nz0/gaibon.c
+    ${REPO}/src/st/nz0/e_elevator.c
+    ${REPO}/src/st/nz0/cutscene.c
+    ${REPO}/src/st/nz0/maria.c
+    ${REPO}/src/st/nz0/st_update.c
+    ${REPO}/src/st/nz0/collision.c
+    ${REPO}/src/st/nz0/create_entity.c
+    ${REPO}/src/st/nz0/e_red_door_tiles.c
+    ${REPO}/src/st/nz0/e_red_door.c
+    ${REPO}/src/st/nz0/st_common.c
+    ${REPO}/src/st/nz0/e_collect.c
+    ${REPO}/src/st/nz0/e_misc.c
+    ${REPO}/src/st/nz0/e_particles.c
+    ${REPO}/src/st/nz0/e_room_fg.c
+    ${REPO}/src/st/nz0/popup.c
+    ${REPO}/src/st/nz0/e_bone_scimitar.c
+    ${REPO}/src/st/nz0/e_axe_knight.c
+    ${REPO}/src/st/nz0/e_bloody_zombie.c
+    ${REPO}/src/st/nz0/e_skeleton.c
+    ${REPO}/src/st/nz0/e_spittle_bone.c
+    ${REPO}/src/st/nz0/e_subweapon_container.c
+    ${REPO}/src/st/nz0/e_blood_skeleton.c
+    ${REPO}/src/st/nz0/e_sealed_door.c
+    ${REPO}/src/st/nz0/e_stage_name.c
+    ${REPO}/src/st/nz0/prim_helpers.c
+    ${REPO}/src/st/nz0/e_life_up.c
+)
+
+# ---- SEL stage: title/menu (exact root-CMake list) ----
+set(GAME_SOURCE_FILES_SEL
+    ${REPO}/src/st/sel/bss.c
+    ${REPO}/src/st/sel/banks.c
+    ${REPO}/src/st/sel/764.c
+    ${REPO}/src/st/sel/CD54.c
+    ${REPO}/src/st/sel/sprites.c
+    ${REPO}/src/st/sel/F9A8.c
+    ${REPO}/src/st/sel/2C048.c
+    ${REPO}/src/st/sel/318CC.c
+    ${REPO}/src/st/sel/32D6C.c
+    ${REPO}/src/st/sel/34048.c
+    ${REPO}/src/st/sel/3410C.c
+    ${REPO}/src/st/sel/34B30.c
+    ${REPO}/src/st/sel/cutscene.c
+    ${REPO}/src/st/sel/cutscene_data.c
+)
+
+# ---- NP3 stage (Castle Entrance, reached from NZ0; exact root-CMake list) ----
+set(GAME_SOURCE_FILES_NP3
+    ${REPO}/src/pc/stages/stage_np3.c
+    ${REPO}/src/st/np3/header.c
+    ${REPO}/src/st/np3/gen/us/e_laydef.c
+    ${REPO}/src/st/np3/e_init.c
+    ${REPO}/src/st/np3/gen/rooms.c
+    ${REPO}/src/st/np3/gen/us/e_layout.c
+    ${REPO}/src/st/np3/gen/sprites.c
+    ${REPO}/src/st/np3/stage_data.c
+    ${REPO}/src/st/np3/background_block_init.c
+    ${REPO}/src/st/np3/e_room_bg.c
+    ${REPO}/src/st/np3/e_lock_camera.c
+    ${REPO}/src/st/np3/e_breakable.c
+    ${REPO}/src/st/np3/d_prize_drops.c
+    ${REPO}/src/st/np3/st_update.c
+    ${REPO}/src/st/np3/collision.c
+    ${REPO}/src/st/np3/create_entity.c
+    ${REPO}/src/st/np3/e_red_door_tiles.c
+    ${REPO}/src/st/np3/e_red_door.c
+    ${REPO}/src/st/np3/st_common.c
+    ${REPO}/src/st/np3/e_collect.c
+    ${REPO}/src/st/np3/e_misc.c
+    ${REPO}/src/st/np3/e_stage_name.c
+    ${REPO}/src/st/np3/e_particles.c
+    ${REPO}/src/st/np3/e_room_fg.c
+    ${REPO}/src/st/np3/popup.c
+    ${REPO}/src/st/np3/prim_helpers.c
+    ${REPO}/src/st/np3/bss.c
+    ${REPO}/src/st/np3/4E04C.c
+    ${REPO}/src/st/np3/d_water_data.c
+    ${REPO}/src/st/np3/water_effects.c
+    ${REPO}/src/st/np3/entrance_weights.c
+    ${REPO}/src/st/np3/e_background_bushes_trees.c
+    ${REPO}/src/st/np3/e_background_lightning.c
+    ${REPO}/src/st/np3/e_bat.c
+    ${REPO}/src/st/np3/blade.c
+    ${REPO}/src/st/np3/e_bloody_zombie.c
+    ${REPO}/src/st/np3/e_bone_scimitar.c
+    ${REPO}/src/st/np3/e_castle_door.c
+    ${REPO}/src/st/np3/e_cavern_door.c
+    ${REPO}/src/st/np3/e_explosion_puff_opaque.c
+    ${REPO}/src/st/np3/e_heartroom.c
+    ${REPO}/src/st/np3/e_jewel_sword_puzzle.c
+    ${REPO}/src/st/np3/e_merman.c
+    ${REPO}/src/st/np3/e_merman2.c
+    ${REPO}/src/st/np3/e_owl_knight.c
+    ${REPO}/src/st/np3/e_shutting_window.c
+    ${REPO}/src/st/np3/e_sky_entities.c
+    ${REPO}/src/st/np3/e_stairway.c
+    ${REPO}/src/st/np3/e_tilemap_shuffler.c
+    ${REPO}/src/st/np3/e_transparent_water.c
+    ${REPO}/src/st/np3/e_trapdoor.c
+    ${REPO}/src/st/np3/e_unkId16.c
+    ${REPO}/src/st/np3/e_zombie.c
+    ${REPO}/src/st/np3/gaibon.c
+    ${REPO}/src/st/np3/slogra.c
+    ${REPO}/src/st/np3/giantbro_helpers.c
+    ${REPO}/src/st/np3/gurkha.c
+    ${REPO}/src/st/np3/hammer.c
+)

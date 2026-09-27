@@ -896,7 +896,7 @@ extern s16 D_80174F6C;
 extern enum DeathKind death_kind;
 RECT D_801545A0 = {512, 256, 32, 80};
 #else
-static u8 dead_dissolve_bmp[0x1400];
+SOTN_XRAM static u8 dead_dissolve_bmp[0x1400];
 static s16 D_80174F68;
 STATIC_PAD_BSS(2);
 static s16 D_80174F6C;

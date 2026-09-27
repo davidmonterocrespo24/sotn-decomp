@@ -1782,6 +1782,32 @@ extern GAME_IMPORT PlayerOvl g_PlOvl;
 extern GAME_IMPORT u8** g_PlOvlAluBatSpritesheet[1];
 extern GAME_IMPORT u8* g_PlOvlSpritesheet[];
 
+/* Alucard's bat-form spritesheet, read safely.
+ *
+ * src/pc/stubs.c defines g_PlOvlAluBatSpritesheet as a permanent NULL — the
+ * bat form's graphics live in a PSX player overlay that this port does not
+ * load, and nothing ever fills the pointer in. All four reads through it
+ * therefore dereference address zero. On a PSX that quietly returned BIOS
+ * bytes and the game carried on; on any machine with real memory protection
+ * it is an immediate fault. On the handheld it panics and reboots, which is
+ * what pressing a button in the Alchemy Lab did.
+ *
+ * The fallback is the standard spritesheet, which is not an invention: at
+ * every one of those four sites the sibling branch already uses exactly that
+ * for non-bat animation sets. The frame drawn is Alucard's rather than the
+ * bat's, but this build has no bat graphics to be right about, and a wrong
+ * sprite is recoverable where a reboot is not.
+ *
+ * On a build where the overlay really is loaded the NULL check never fires,
+ * so this costs one comparison and changes nothing. */
+static inline u8* PlOvlAluBatSprite(s32 idx) {
+    u8** sheet = *g_PlOvlAluBatSpritesheet;
+    if (sheet == NULL) {
+        sheet = (u8**)SPRITESHEET_PTR;
+    }
+    return sheet[idx];
+}
+
 /**** Helper signatures - used for M2C, not in main repo ****/
 extern void (*g_api_FreePrimitives)(s32);
 extern s16 (*g_api_AllocPrimitives)(PrimitiveType type, s32 count);

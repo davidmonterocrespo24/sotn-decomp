@@ -204,7 +204,7 @@ void RenderEntities(void) {
             r->spriteSheetIdx &= 0x7FFF;
             if (r->animSet > 0) {
                 if (r->animSet == 13) {
-                    spriteData = (*g_PlOvlAluBatSpritesheet)[r->spriteSheetIdx];
+                    spriteData = PlOvlAluBatSprite(r->spriteSheetIdx);
                 } else {
                     spriteData = ((u8**)SPRITESHEET_PTR)[r->spriteSheetIdx];
                 }
@@ -700,7 +700,7 @@ void RenderEntitiesPSP(void) {
             r->spriteSheetIdx &= 0x7FFF;
             if (r->animSet > 0) {
                 if (r->animSet == 13) {
-                    spriteData = (*g_PlOvlAluBatSpritesheet)[r->spriteSheetIdx];
+                    spriteData = PlOvlAluBatSprite(r->spriteSheetIdx);
                 } else {
                     spriteData = ((u8**)SPRITESHEET_PTR)[r->spriteSheetIdx];
                 }

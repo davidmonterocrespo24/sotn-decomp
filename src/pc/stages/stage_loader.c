@@ -60,10 +60,16 @@ static bool LoadRoomTileDef(struct FileAsString* file) {
 }
 
 static int g_TileDefIndex = 0;
-static TileDefinition g_TileDefPool[0x40];
-static TileDefinition g_TileDefDataPool[0x40][4][0x1000];
+SOTN_XRAM static TileDefinition g_TileDefPool[0x40];
+/* Byte storage for the four tiledef planes (gfxPage/gfxIndex/clut/collision),
+   0x1000 bytes each - see the FileReadToBuf calls above. Typing it as
+   TileDefinition (four pointers) multiplied the footprint by sizeof(ptr)*4:
+   16MB on a 32-bit target, 32MB on x64, for data that is 1MB. It only compiled
+   because the incompatible-pointer warnings are relaxed. On an 8MB-PSRAM
+   ESP32-S3 the wrong type alone makes the port impossible. */
+SOTN_XRAM static u8 g_TileDefDataPool[0x40][4][0x1000];
 static int g_LayoutIndex = 0;
-static u16 g_LayoutPool[0x10000];
+SOTN_XRAM static u16 g_LayoutPool[0x10000];
 static bool LoadRoomLayerDef(LayerDef* l, cJSON* jitem, RoomLoadDesc* desc) {
     l->rect.left = JITEM("left")->valueint;
     l->rect.top = JITEM("top")->valueint;
@@ -116,7 +122,7 @@ static bool LoadRoomLayerDef(LayerDef* l, cJSON* jitem, RoomLoadDesc* desc) {
 
 static int g_LayerDefIndex = 0;
 static LayerDef g_LayerDefPool[0x40];
-static RoomDef g_TileLayers[0x100];
+SOTN_XRAM static RoomDef g_TileLayers[0x100];
 static bool LoadTileLayers(struct FileAsString* file) {
     int i;
     RoomLoadDesc* desc = (RoomLoadDesc*)file->param;
@@ -198,7 +204,7 @@ RoomDef* LoadRoomsLayers(const char* filePath) {
 }
 
 static int g_LayoutEntityIndex = 0;
-static LayoutEntity g_LayoutEntityPool[0x200];
+SOTN_XRAM static LayoutEntity g_LayoutEntityPool[0x200];
 static bool _LoadObjLayout(const struct FileAsString* file) {
     int i;
     cJSON* json = cJSON_Parse(file->content);
@@ -239,7 +245,7 @@ LayoutEntity* LoadObjLayout(const char* filePath) {
     return g_LayoutEntityPool + start;
 }
 
-RoomHeader room_headers[0x100];
+SOTN_XRAM RoomHeader room_headers[0x100];
 static bool _LoadRoomDefArray(const struct FileAsString* file) {
     int i;
     cJSON* json = cJSON_Parse(file->content);
@@ -280,7 +286,7 @@ RoomHeader* LoadRoomDefs(const char* filePath) {
 static int g_SpritePartPtrIndex = 0;
 static SpriteParts* g_SpritePartPtrPool[0x100];
 static int g_SpritePartIndex = 0;
-static u16 g_SpritePartPool[0x200 * sizeof(SpritePart)];
+SOTN_XRAM static u16 g_SpritePartPool[0x200 * sizeof(SpritePart)];
 static bool _LoadSpriteParts(struct FileAsString* file) {
     int i, j;
     cJSON* json = cJSON_Parse(file->content);

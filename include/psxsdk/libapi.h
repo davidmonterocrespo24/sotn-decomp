@@ -21,6 +21,11 @@ extern long Exec(struct EXEC*, long, char**);
 // GPU_cw
 extern void _bu_init(void);
 
+/* Under psyz these five are macro-renamed to psyz_* and the psyz headers carry
+   their own prototypes; the PSX-era signatures here (long fd, non-variadic
+   open) conflict with them, and GCC treats conflicting redeclarations as hard
+   errors. */
+#ifndef __psyz
 /*
  * Opens a device for low-level input/output and returns
  * the descriptor. Returns -1 on failure.
@@ -49,6 +54,7 @@ extern long write(long, void*, long);
  */
 extern int close(int fd // File descriptor
 );
+#endif /* __psyz */
 
 /*
  * Initializes the file system
