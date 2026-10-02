@@ -45,6 +45,7 @@ seconds. [Open the Velxio editor](https://velxio.dev/).
 - **Port overview, status and build steps:** [`esp32/README.md`](esp32/README.md)
 - **Build the handheld** (wiring diagram, parts, button map): [`esp32/hardware/HARDWARE.md`](esp32/hardware/HARDWARE.md)
 - **Write-up:** [Castlevania: Symphony of the Night running natively on the ESP32-S3](https://velxio.dev/blog/posts/castlevania-sotn-on-esp32-s3/)
+- **Questions, ideas or your own build:** join the [Velxio Discord](https://discord.com/invite/3mARjJrh4E)
 
 The same handheld also runs [Metal Gear Solid](https://github.com/davidmonterocrespo24/mgs_reversing/tree/esp32-port).
 You need your own copy of the game: no game data is included in this
@@ -153,7 +154,7 @@ Overlays listed as *invalid* have not yet been started.
 
 Decompiling a game is a mastodontic task. If you have some basic programming skills, please join us in this journey. Any contribution will be very appreciated!
 
-[![Join to our Discord server](https://discord.com/api/guilds/1079389589950705684/widget.png?style=banner2)](https://sotn-discord.xee.dev/)
+Questions or ideas? Join the [Velxio Discord](https://discord.com/invite/3mARjJrh4E).
 
 ## Special thanks
 
