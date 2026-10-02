@@ -7,11 +7,11 @@ PlayStation SDK and GPU are replaced by software. The Alchemy Laboratory runs
 at 60 fps.
 
 <p align="center">
-  <a href="https://youtube.com/shorts/qYXikWOWIp0">
+  <a href="https://youtube.com/shorts/2gOgHF8pE0o">
     <img src="docs/esp32/gameplay.gif" alt="Castlevania: Symphony of the Night gameplay on the XIAO ESP32S3 handheld" width="360">
   </a>
   <br>
-  <sub>Gameplay on the handheld. <a href="https://youtube.com/shorts/qYXikWOWIp0">Watch the full video on YouTube</a>.</sub>
+  <sub>Gameplay on the handheld. <a href="https://youtube.com/shorts/2gOgHF8pE0o">Watch the full video on YouTube</a>.</sub>
 </p>
 
 <p align="center">
