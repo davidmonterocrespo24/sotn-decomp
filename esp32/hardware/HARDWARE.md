@@ -8,6 +8,13 @@ PlayStation button each key reports differs (table below).
 
 <!-- PHOTOS: add pictures of the build here -->
 
+<p align="center">
+  <img src="../../docs/esp32/handheld-front-camera-removed.webp" alt="Front of the finished handheld" width="45%">
+  <img src="../../docs/esp32/handheld-back-camera-removed.webp" alt="Back of the finished handheld: point-to-point wiring" width="45%">
+</p>
+
+The finished build, front and back. The XIAO's camera module is not used and has been taken off.
+
 ## Parts
 
 | Part | Qty | Notes |

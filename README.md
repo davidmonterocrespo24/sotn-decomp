@@ -20,6 +20,13 @@ at 60 fps.
   <img src="docs/esp32/handheld-top-view.webp" alt="The assembled handheld: ILI9341 panel, analog stick, buttons and the XIAO" width="32%">
 </p>
 
+<p align="center">
+  <img src="docs/esp32/handheld-back-camera-removed.webp" alt="The back of the handheld: point-to-point wiring on perfboard, with the XIAO camera module removed" width="45%">
+  <img src="docs/esp32/handheld-front-camera-removed.webp" alt="The front of the handheld next to the XIAO camera module, which the port doesn't use" width="45%">
+  <br>
+  <sub>The back (point-to-point wiring on perfboard) and the front, with the XIAO's camera module taken off: the port doesn't use it.</sub>
+</p>
+
 ### Tested with Velxio, without flashing the board every time
 
 <a href="https://velxio.dev/"><img src="docs/esp32/velxio-logo.svg" alt="Velxio" width="56" align="left"></a>
