@@ -1,3 +1,52 @@
+# Castlevania: Symphony of the Night on the ESP32-S3
+
+This fork runs **Castlevania: Symphony of the Night natively on an ESP32-S3
+microcontroller**, including a DIY handheld built around a Seeed XIAO ESP32S3
+Sense. The decompilation's C is compiled straight to Xtensa machine code; the
+PlayStation SDK and GPU are replaced by software. The Alchemy Laboratory runs
+at 60 fps.
+
+<p align="center">
+  <a href="https://youtube.com/shorts/qYXikWOWIp0">
+    <img src="docs/esp32/gameplay.gif" alt="Castlevania: Symphony of the Night gameplay on the XIAO ESP32S3 handheld" width="360">
+  </a>
+  <br>
+  <sub>Gameplay on the handheld. <a href="https://youtube.com/shorts/qYXikWOWIp0">Watch the full video on YouTube</a>.</sub>
+</p>
+
+<p align="center">
+  <img src="docs/esp32/handheld-alchemy-lab.webp" alt="The handheld running SOTN in the Alchemy Laboratory" width="32%">
+  <img src="docs/esp32/handheld-combat-2.webp" alt="Fighting in the Alchemy Laboratory, with the enemy name box at the bottom" width="32%">
+  <img src="docs/esp32/handheld-top-view.webp" alt="The assembled handheld: ILI9341 panel, analog stick, buttons and the XIAO" width="32%">
+</p>
+
+### Tested with Velxio, without flashing the board every time
+
+<a href="https://velxio.dev/"><img src="docs/esp32/velxio-logo.svg" alt="Velxio" width="56" align="left"></a>
+
+During development I used **[velxio-cli](https://velxio.dev/docs/ci/)** to run
+the compiled firmware on the [Velxio](https://velxio.dev/) simulator straight
+from the terminal, instead of flashing the ESP32-S3 after every change. The CLI
+boots the real firmware image, streams the serial output back and exits with an
+error when the expected output does not appear, so a change can be checked in
+seconds. [Open the Velxio editor](https://velxio.dev/).
+
+<br clear="left">
+
+### Where to go next
+
+- **Port overview, status and build steps:** [`esp32/README.md`](esp32/README.md)
+- **Build the handheld** (wiring diagram, parts, button map): [`esp32/hardware/HARDWARE.md`](esp32/hardware/HARDWARE.md)
+- **Write-up:** [Castlevania: Symphony of the Night running natively on the ESP32-S3](https://velxio.dev/blog/posts/castlevania-sotn-on-esp32-s3/)
+
+The same handheld also runs [Metal Gear Solid](https://github.com/davidmonterocrespo24/mgs_reversing/tree/esp32-port).
+You need your own copy of the game: no game data is included in this
+repository.
+
+---
+
+*The original sotn-decomp README follows.*
+
 # Castlevania: Symphony of the Night Decompilation
 
 A work-in-progress decompilation of Castlevania Symphony of the Night for Sony PlayStation 1, Sony PlayStation Portable and Sega Saturn. It aims to recreate the source code from the existing binaries using static and/or dynamic analysis. The code compiles byte-for-byte to the same binaries of the game, effectively being a matching decompilation.
